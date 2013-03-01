@@ -8,9 +8,12 @@ def georgealyser
   tagged = tgr.add_tags(self)
   georgewords = ["Costanza", "George", "Costanza", "George", "Vandelay Industries", "George Costanza", "George Costanza", "Importer/Exporter"]
   nouns = tgr.get_nouns(tagged)
+  
+  
   nouns.delete_if {|key, value| key[0]==":"}
   nouns.delete_if {|key, value| key[0]=="@"}
   nouns.delete("http")
+  if nouns.size>0
   b = nouns.keys.sample
   c = nouns.keys.sample
   self.gsub!("Alain","George")
@@ -20,8 +23,11 @@ def georgealyser
   self.gsub!("atheists","marine biologists") 
   self.gsub!(b,georgewords.sample)
   self.gsub!(c,georgewords.sample)
-
   return self
+  
+else
+   return "no nouns"
+end
 end
 
 def trim140
@@ -69,11 +75,13 @@ x = result.fetch_row
   LatestTweet = AlainTweets.search("from:alaindebotton", :result_type => "recent",  :since_id => x[0].to_i ).results.reverse.each do |status|
     puts status.text.georgealyser
     puts status.id
-    tweettext = status.text
-    con.query("update lasttweet set lasttweet=#{status.id} where id=1")
+    tweettext = status.text.georgealyser
+    tweetid=status.id
+    con.query("update lasttweet set lasttweet=#{tweetid} where id=1")
     
-    AlainTwoots.update(tweettext.trim140)  
-  
+    if tweettext!="no nouns"
+       AlainTwoots.update(tweettext.trim140)  
+    end
     
   
   end
