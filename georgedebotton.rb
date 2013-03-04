@@ -15,6 +15,7 @@ def georgealyser
   nouns.delete("http")
   if nouns.size>0
   b = nouns.keys.sample
+  nouns.delete(b)
   c = nouns.keys.sample
   self.gsub!("Alain","George")
   self.gsub!("de Botton","Costanza")
@@ -72,7 +73,8 @@ x = result.fetch_row
 
 
 
-  LatestTweet = AlainTweets.search("from:alaindebotton", :result_type => "recent",  :since_id => x[0].to_i ).results.reverse.each do |status|
+  LatestTweet = AlainTweets.search("from:alaindebotton", :result_type => "recent",  :since_id => 1 #x[0].to_i 
+  ).results.reverse.each do |status|
     puts status.text.georgealyser
     puts status.id
     tweettext = status.text.georgealyser
@@ -80,7 +82,7 @@ x = result.fetch_row
     con.query("update lasttweet set lasttweet=#{tweetid} where id=1")
     
     if tweettext!="no nouns"
-       AlainTwoots.update(tweettext.trim140)  
+       #AlainTwoots.update(tweettext.trim140)  
     end
     
   
