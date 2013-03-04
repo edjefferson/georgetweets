@@ -6,7 +6,7 @@ class String
 def georgealyser
   tgr = EngTagger.new
   tagged = tgr.add_tags(self)
-  georgewords = ["Costanza", "George", "Costanza", "George", "Vandelay Industries", "George Costanza", "George Costanza", "Importer/Exporter"]
+  georgewords = ["Costanza", "George", "Vandelay Industries", "George Costanza", "Importer/Exporter"]
   nouns = tgr.get_nouns(tagged)
   
   
