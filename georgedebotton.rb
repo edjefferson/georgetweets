@@ -75,9 +75,9 @@ x = result.fetch_row
 
   LatestTweet = AlainTweets.search("from:alaindebotton", :result_type => "recent",  :since_id => 1 #x[0].to_i 
   ).results.reverse.each do |status|
-    puts status.text.georgealyser
     puts status.id
     tweettext = status.text.georgealyser
+    puts tweettext
     tweetid=status.id
     con.query("update lasttweet set lasttweet=#{tweetid} where id=1")
     
