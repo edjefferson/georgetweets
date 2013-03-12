@@ -82,7 +82,7 @@ x = result.fetch_row
     con.query("update lasttweet set lasttweet=#{tweetid} where id=1")
     
     if tweettext!="no nouns"
-       AlainTwoots.update(tweettext.trim140)  
+       #AlainTwoots.update(tweettext.trim140)  
     end
     
   
